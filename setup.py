@@ -2,7 +2,7 @@ from distutils.core import setup, Extension
 
 ltc_scrypt_module = Extension('ltc_scrypt',
                                sources = ['scryptmodule.c',
-                                          'scrypt.c'],
+                                          'Lyra.c', 'Sponge.c'],
                                include_dirs=['.'])
 
 setup (name = 'ltc_scrypt',

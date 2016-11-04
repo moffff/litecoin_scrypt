@@ -1,6 +1,6 @@
 #include <Python.h>
 
-#include "scrypt.h"
+#include "Lyra2.h"
 
 static PyObject *scrypt_getpowhash(PyObject *self, PyObject *args)
 {
@@ -17,9 +17,9 @@ static PyObject *scrypt_getpowhash(PyObject *self, PyObject *args)
     output = PyMem_Malloc(32);
 
 #if PY_MAJOR_VERSION >= 3
-    scrypt_1024_1_1_256((char *)PyBytes_AsString((PyObject*) input), output);
+    LYRA2(BEGIN(output), 32, BEGIN((char *)PyBytes_AsString((PyObject*) input)), 80, BEGIN(PyObject*->nVersion), 80, 2, PyObject*->nHeight + 1, 256);
 #else
-    scrypt_1024_1_1_256((char *)PyString_AsString((PyObject*) input), output);
+    /*LYRA2(BEGIN(output), 32, BEGIN((char *)PyBytes_AsString((PyObject*) input)), 80, BEGIN(PyObject*->nVersion), 80, 2, PyObject*->nHeight + 1, 256);*/
 #endif
     Py_DECREF(input);
 #if PY_MAJOR_VERSION >= 3
